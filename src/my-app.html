@@ -27,11 +27,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-component-page/iron-component-page.html">
 
 
-<link rel="lazy-import" href="my-calymer-events.html">
-<link rel="lazy-import" href="my-create-event.html">
-<link rel="lazy-import" href="my-update-event.html">
-<link rel="lazy-import" href="my-single-event.html">
-<link rel="lazy-import" href="my-view404.html">
+<link rel="lazy-import" href="./views/my-calymer-events.html">
+<link rel="lazy-import" href="./views/my-create-event.html">
+<link rel="lazy-import" href="./views/my-update-event.html">
+<link rel="lazy-import" href="./views/my-single-event.html">
+<link rel="lazy-import" href="./views/my-view404.html">
 
 <dom-module id="my-app">
   <template>
@@ -98,7 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         id="getAllEvents"
         auto
         url='http://localhost:3000/events'
-        last-response="{{ events }}" 
+        last-response="{{ events }}"
         loading="{{ loading }}">
     </iron-ajax>
 
@@ -164,7 +164,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           rootPath: String,
           events: Array,
           loading: {
-              type: Boolean, 
+              type: Boolean,
               value: true
           },
         };
@@ -177,7 +177,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       ready() {
-        super.ready() 
+        super.ready()
         this.addEventListener('event-updated', () => { this.$.getAllEvents.generateRequest() })
         this.addEventListener('new-event-created', () => { this.$.getAllEvents.generateRequest() })
         this.addEventListener('event-deleted', () => { this.$.getAllEvents.generateRequest() })

@@ -1,6 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/flippy-card/flippy-card.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+link:<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+link:<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../components/event-map.html">
 <link rel="import" href="../theme/shared-styles.html">
 <link rel="import" href="../theme/card-styles.html">
@@ -26,10 +29,10 @@
 
     </style>
 
-    <iron-ajax 
-      id="deleteEvent" 
-      method="delete" 
-      url='http://localhost:3000/events/[[id]]' 
+    <iron-ajax
+      id="deleteEvent"
+      method="delete"
+      url='http://localhost:3000/events/[[id]]'
       on-response="deleteEventResponse"
       on-error="deleteEventError">
     </iron-ajax>
@@ -47,7 +50,7 @@
       on-mouseenter="flipit"
       on-mouseleave="flipit"
       on-tap="flipit"
-      event="[[event]]"
+      on-event="[[event]]"
     >
       <div slot="front" id="front" class$="[[event.category]]">
         <container>
@@ -96,12 +99,12 @@
 
        /** This method recives timestamp and transforms it into formatted string
        * @param {Number} timestamp
-       * @return {String} Readable date and time 
+       * @return {String} Readable date and time
        */
       getEventDate(timestamp){
-        
+
         let date = new Date(timestamp)
-        //  Destructuring the array obtained by splitting date to String representation, 
+        //  Destructuring the array obtained by splitting date to String representation,
         //  leaving out timezone
         let [DW, M, D, YYYY, T ] = date.toString().split(" ",5)
         //  Preparing day of month digits for check if date should be represented by a single digit
@@ -123,23 +126,23 @@
           case (digit2 == 2): D = D+"nd"
             break;
           case (digit2 == 3): D = D+"rd"
-            break;  
+            break;
           default: D = D+"th"
             break;
-        } 
+        }
         //  Returning a String, cutting out seconds from time
         return `${DW}, ${M} ${D} ${YYYY}, ${T.slice(0,-3)}`
       }
       getHours(minutes){
         //If full hour, show only hour
-        return (minutes%60 == 0) ? 
-        `${Math.floor(minutes/60)}h` : 
+        return (minutes%60 == 0) ?
+        `${Math.floor(minutes/60)}h` :
         `${Math.floor(minutes/60)}h ${minutes%60}m`
       }
-      
+
        /** This method shows icons depending on event category
        * @param {String} eventType
-       * @return {String} string to set icon attribute 
+       * @return {String} string to set icon attribute
        */
       getIconType(eventType){
         switch(eventType){
@@ -154,7 +157,7 @@
       }
 
        /** This method changes flip card state and calls <flippy-card> flip method
-       * 
+       *
        */
 
       flipit() {
@@ -163,7 +166,7 @@
       }
 
       /** This method calls dialog pop up to confirm or discard event deletion
-       * 
+       *
        */
       dialogOpen(e) {
         const id = e.target.getAttribute('id')
@@ -172,14 +175,14 @@
       }
 
       /** Close dialog pop up if user discards event deletion
-       * 
+       *
        */
       cancelDelete() {
           this.$.dialog.close()
       }
-      
+
       /** generate delete request to api and deletes event
-       * 
+       *
        */
       deleteEvent() {
           this.$.deleteEvent.generateRequest()
@@ -187,21 +190,21 @@
       }
 
       /** dispatches custom event to inform the main component when event is deleted
-       * 
+       *
        */
       deleteEventResponse() {
           this.dispatchEvent(new CustomEvent('event-deleted', {
             bubbles: true,
             composed: true,
             detail: {
-              
+
             }
           }));
           console.log('event deleted')
       }
 
       /** informs if delete request couldn´t be performed
-       * 
+       *
        */
       deleteEventError(error) {
           console.log('There was an error deleting the event', error.detail.error)

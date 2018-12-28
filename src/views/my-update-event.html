@@ -2,7 +2,9 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="../../src/components/date-inputs.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../components/date-inputs.html">
 <link rel="import" href="../theme/shared-styles.html">
 
 <dom-module id="my-update-event">
@@ -11,9 +13,9 @@
             :host {
                 display: block
             }
-            
+
             paper-button.green {
-                background-color: var(--paper-green-500); 
+                background-color: var(--paper-green-500);
                 color: white;
             }
 
@@ -24,7 +26,7 @@
         pattern="[[rootPath]]:id"
         data="{{routeData}}">
     </app-route>
-        
+
     <iron-ajax
         id="getEvent"
         url='http://localhost:3000/events/[[id]]'
@@ -78,25 +80,25 @@
                 label="Category"
                 value="{{ event.category::input }}">
             </paper-input>
-            <date-inputs on-date-changed="dateChanged"></date-inputs>  
+            <date-inputs on-date-changed="dateChanged"></date-inputs>
             <paper-button toggles raised class="custom green" on-click="updateEvent"> Update Event </paper-button>
         </form>
     </div>
-    
+
     <paper-toast id="toast"></paper-toast>
     <paper-toast id="toastError"></paper-toast>
 
     </template>
 
     <script>
-        
+
         class MyUpdateEvent extends Polymer.Element {
-            
+
             static get is() {
                 return 'my-update-event';
             }
 
-            
+
             static get properties() {
                 return {
                     route: Object,
@@ -153,7 +155,7 @@
                     bubbles: true,
                     composed: true,
                     detail: {
-                        
+
                     }
                 }));
             }

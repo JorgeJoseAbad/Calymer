@@ -1,0 +1,129 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="my-confirm">
+    <template>
+        <style>
+            :host {
+                display: block
+            }
+            #actions{
+              background-color: yellowgreen;
+              box-shadow: 9px 9px 20px 4px #031303;
+            }
+        </style>
+
+     
+
+<paper-button raised on-click="openDialog">[[action]]</paper-button>
+
+
+<paper-dialog id="actions">
+  <h2>Confirm [[action]] to [[event]]</h2>
+  <p>Are you sure do yo want to [[action]]??.</p>
+  <div class="buttons">
+    <paper-button dialog-dismiss on-click="negative">No</paper-button>
+    <paper-button dialog-confirm autofocus on-click="positive">Yes to action</paper-button>
+  </div>
+</paper-dialog>
+
+
+
+
+    </template>
+
+    <script>
+        /**
+         * `my-confirm` confirm action and send a custom event
+         *
+         * @summary confirm action
+         * @customElement
+         * @polymer
+         * @extends {Polymer.Element}
+         */
+        class MyConfirm extends Polymer.Element {
+            /**
+             * String providing the tag name to register the element under.
+             */
+            static get is() {
+                return 'my-confirm';
+            }
+
+            /**
+             * Object describing property-related metadata used by Polymer features
+             */
+            static get properties() {
+                return {
+                    /**
+                    * # action is input parameter, acept or decline 
+                    * @type {String}
+                    * 
+                    */
+                    action: String,
+                    /**
+                    * # event is input parameter, name of event.
+                    * @type {String}
+                    * 
+                    */
+                    event: String
+                    
+                };
+            }
+
+             /**
+            * # method for open paper dialog box
+            * @params {}
+            */
+            openDialog() {
+                console.log(this.action)
+                this.$.actions.open();
+            }
+
+            /**
+            * # response method to send custom event positive response action
+            * @params {}
+            */
+            positive(){
+                console.log("positive")
+                this.dispatchEvent(new CustomEvent('positive-response', {
+                    detail: this.action
+                }));
+            }
+
+            /**
+            * # response method to send custom event for negative response
+            * @params 
+            */
+            negative(){
+                console.log("negative");
+                this.dispatchEvent(new CustomEvent('negative-response', {
+                    detail: this.action
+                }));
+            }
+
+            /**
+             * Instance of the element is created/upgraded. Use: initializing state,
+             * set up event listeners, create shadow dom.
+             * @constructor
+             */
+            constructor() {
+                super();
+            }
+
+            /**
+             * Use for one-time configuration of your component after local DOM is initialized. 
+             */
+            ready() {
+                super.ready();
+
+                Polymer.RenderStatus.afterNextRender(this, function() {
+                    
+                });
+            }
+
+        }
+
+        window.customElements.define(MyConfirm.is, MyConfirm);
+    </script>
+</dom-module>

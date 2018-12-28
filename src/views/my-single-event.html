@@ -1,8 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../src/components/show-date.html">
+<link rel="import" href="my-confirm.html">
 <link rel="import" href="../theme/shared-styles.html">
 
 <dom-module id="my-single-event">
@@ -11,48 +13,144 @@
             :host {
                 display: block
             }
+            paper-button{
+                --paper-button-ink-color: var(--paper-pink-a200);
+            }
+            paper-button.green:hover {
+                background-color: var(--paper-indigo-100);
+            }
+            paper-button.red:hover {
+                background-color: var(--paper-indigo-100);
+            }
+            paper-button.green {
+                background-color: var(--paper-green-500);
+                color:black;
+
+            }
+            paper-button.red {
+                background-color: var(--paper-red-500);
+                color: black;
+
+            }
+
+            .card{
+                background-color: aquamarine;
+                padding: 30px;
+                box-shadow: 9px 9px 20px 4px #021817;
+            }
+
+            .question{
+                color: black;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size:  24px;
+                font-style: italic;
+                font-size: 30px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            .display-event{
+                display:list-item;
+                font-size: 20px;
+            }
+
+            .display-event h2{
+                display:inline;
+            }
+            .display-event h3{
+                display:inline
+            }
         </style>
 
-    <app-route
-        route="{{route}}"
-        pattern="[[rootPath]]:id"
-        data="{{routeData}}">
-    </app-route>
+        <app-route
+            route="{{route}}"
+            pattern="[[rootPath]]:id"
+            data="{{routeData}}">
+        </app-route>
 
-    <iron-ajax
-        id="getEvent"
-        url='http://localhost:3000/events/[[id]]'
-        last-response="{{event}}">
-    </iron-ajax>
+        <iron-ajax
+            id="ironajax"
+            url="http://localhost:3000/events/[[id]]"
+            last-response="{{event}}"
+        >
+        </iron-ajax>
 
-    <iron-ajax
-        id="updateConfirmations"
-        url='http://localhost:3000/events/[[id]]'
-        method="put"
-        content-type="application/json"
-        body="[[ event ]]"
-        on-response="updateConfirmationsResponse"
-        on-error="updateConfirmationsError">
-    </iron-ajax>
 
-    <div class="card">
-        <h2>[[ event.name ]]</h2>
-        <h3>Organizer: [[ event.organizer ]]</h3>
-        <span> Location: [[ event.location ]]</span>
-        <p>[[ event.description ]]</p>
-        <show-date timestamp="[[ event.date ]]" format="es"></show-date>
-        <p>Asistants: [[ event.confirmations ]]</p>
-        <p>Rejections: [[ event.rejections ]]</p>
-        <paper-button toggles raised class="custom green" id="confirmationButton" on-click="confirmAssistance">Confirm</paper-button>
-        <paper-button toggles raised class="custom red" id="declineButton" on-click="declineAssistance">Decline</paper-button>
-    </div>
+        <iron-ajax
+            id="ironajaxaccept"
+            method= "put"
+            url="http://localhost:3000/events/[[id]]"
+            handle-as="json"
+            body="[[event]]"
+            content-type="application/json"
+            contentType: ""
+            on-response="putResponse"
+            on-error="putError"
+        >
+        </iron-ajax>
 
-    <paper-toast id="success"></paper-toast>
-    <paper-toast id="error"></paper-toast>
+        <iron-ajax
+            id="ironajaxdecline"
+            method= "put"
+            url="http://localhost:3000/events/[[id]]"
+            handle-as="json"
+            body="[[event]]"
+            content-type="application/json"
+            contentType: ""
+            on-response="putResponse"
+            on-error="putError"
+        >
+        </iron-ajax>
+
+        <div class="card">
+
+            <h1>[[event.name]] page</h1>
+            <div class="display-event"> Name of event: <h2>[[event.name]]</h2></div>
+            <div class="display-event">Organized by: <h3>[[event.organizer]]</h3></div>
+            <div class="display-event">Category: <h3>[[event.category]]</h3></div>
+            <div class="display-event">Place: <h3>[[event.location]]</h3></div>
+            <div class="display-event">Description: <h3>[[event.description]]</h3></div>
+            <div class="display-event"><b><show-date timestamp="[[ event.date ]]" format="es"></b></show-date></div>
+            <div class="display-event">People who come to the event: <h3>[[event.confirmations]]</h3></div>
+            <div class="display-event">People who decline: <h3>[[event.rejections]]</h3></div>
+
+
+            <!-- This to replace to reference to "component 2"-->
+            <!--<component-2></component-2>-->
+            <div class="question">Do you want to join the event?</div>
+            <paper-button class="green" id="green">
+                <my-confirm
+                    on-positive-response="response"
+                    on-negative-response="noresponse"
+                    action="acept"
+                    event="[[event.name]]"
+                >I acept
+                </my-confirm>
+            </paper-button>
+            <paper-button class="red" id="red">
+                <my-confirm
+                    on-positive-response="response"
+                    on-negative-response="noresponse"
+                    action="decline"
+                    event="[[event.name]]"
+                >I decline
+                </my-confirm>
+            </paper-button>
+
+        </div>
+
     </template>
 
     <script>
-        
+        /**
+         * `my-editar-evento` Component to show an event data and confirm asistance
+         * * slap two `<my-confirm>` at the bottom to confirm or deny asistence
+         * <body>
+         *   <my-confirm></my-confirm>
+         * @summary Component to show an event data and confirm asistance.
+         * @customElement
+         * @polymer
+         * @extends {Polymer.Element}
+         */
         class MySingleEvent extends Polymer.Element {
             /**
              * String providing the tag name to register the element under.
@@ -68,8 +166,18 @@
                 return {
                     route: Object,
                     routeData: Object,
-                    event: Object,
+                     /**
+                    * # This is id of event
+                    * @type {Number}
+                    *
+                    */
                     id: Number,
+                      /**
+                    * # This is event json object
+                    * @type {Object}
+                    *
+                    */
+                    event: Object,
                     date: String
                 };
             }
@@ -80,55 +188,104 @@
                 ];
             }
 
-            /** This method makes a get request to API to show a single event
-             * @param {Number} id
+            /**
+            * # response method to go acept or decline methods
+            * @params {e}
             */
-            getEventToShow(id) {
-                this.id = id
-                this.$.getEvent.generateRequest()
-                this.$.confirmationButton.removeAttribute('disabled')
-                this.$.declineButton.removeAttribute('disabled')
-               
+            response(e){
+                console.log(e)
+                if (e.detail=="acept"){
+                    this.accept();
+                } else if (e.detail=="decline"){
+                    this.decline();
+                }
             }
 
-            /** This method adds a +1 to confirmations field of event object
-             * @param {Number} id
+            /**
+            * # alert Method to show negation of option
+            * @params {e}
             */
-            confirmAssistance () {
-                const confirmations = this.get('event.confirmations')
-                this.set('event.confirmations', parseInt(confirmations + 1))
-                this.$.confirmationButton.setAttribute('disabled', '')
-                this.$.declineButton.setAttribute('disabled', '')
-                this.$.confirmationButton.classList.remove('green')
-                this.$.declineButton.classList.remove('red')
-                this.$.updateConfirmations.generateRequest()
+            noresponse(e){
+                var msg="No!!! I do NOT want to "+e.detail
+                window.alert(msg)
+            }
+              /**
+            * # This is idChanged to get the id of event and retrieve it
+            * @params {Number}
+            */
+            getEventToShow(id){
+                this.id=id;
+                this.$.ironajax.generateRequest();
+                console.log(this.id)
             }
 
-            /** This method adds a +1 to rejections field of event object
-             * @param {Number} id
+
+             /**
+            * # This is accept to acept event, user event, and update json
+            * @params {}
             */
-            declineAssistance () {
-                const rejections = this.get('event.rejections')
-                this.set('event.rejections', parseInt(rejections + 1))
-                this.$.confirmationButton.setAttribute('disabled', '')
-                this.$.declineButton.setAttribute('disabled', '')
-                this.$.confirmationButton.classList.remove('green')
-                this.$.declineButton.classList.remove('red')
-                this.$.error.show('OK! you decline this event.')
+            accept(){
+                this.event.confirmations++;
+                console.log(this.event.confirmations)
+                this.$.ironajaxaccept.generateRequest()
+                this.$.green.setAttribute("disabled", "")
+                this.$.green.setAttribute("style", "background-color: grey;");
+                this.$.red.setAttribute("disabled","")
+                this.$.red.setAttribute("style", "background-color: grey;");
             }
 
-            /** This method sends a success message to user
+             /**
+            * # This is decline to decline event,  user event, and update json
+            * @params {}
             */
-            updateConfirmationsResponse() {
-                this.$.success.show('Thank you! I have been confirmed!')
+            decline(){
+                this.event.rejections++;
+                console.log(this.event.rejections)
+                this.$.ironajaxdecline.generateRequest()
+                this.$.green.setAttribute("disabled", "")
+                this.$.green.setAttribute("style", "background-color: grey;");
+                this.$.red.setAttribute("disabled","")
+                this.$.red.setAttribute("style", "background-color: grey;");
+
             }
 
-            /** This method sends an error message to user
+            /**
+            * create a new event for future use
+            * @params {e}
             */
-            updateConfirmationsError(error) {
-                this.$.error.show('Sorry, your assistance couldnt be confirmed')
-                console.log('sorry, your assistance couldnt be confirmed', error)
+            putResponse(e){
+               this.dispatchEvent(new CustomEvent('put-response'));
+               this.getEventToShow(this.id); //refresh
+               console.log(e.detail);
+           }
+
+            /**
+            * error case
+            * @params {e}
+            */
+            putError(e){
+                console.log(e)
             }
+
+
+            /**
+             * Instance of the element is created/upgraded. Use: initializing state,
+             * set up event listeners, create shadow dom.
+             * @constructor
+             */
+            constructor() {
+                super();
+            }
+
+            /**
+             * Use for one-time configuration of your component after local DOM is initialized.
+             */
+            ready() {
+                super.ready();
+                console.log("in ready");
+                //this.idChanged(this.id)
+            }
+
         }
 
         window.customElements.define(MySingleEvent.is, MySingleEvent);

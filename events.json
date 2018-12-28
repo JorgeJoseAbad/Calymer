@@ -7,7 +7,7 @@
       "description": "Comple Miko",
       "location": "c/Mayor 1, Madrid",
       "date": 1657449000000,
-      "confirmations": "",
+      "confirmations": 1,
       "rejections": "",
       "id": 13
     },
@@ -18,7 +18,7 @@
       "location": "madrid",
       "category": "music",
       "date": 1673521920000,
-      "confirmations": "",
+      "confirmations": 1,
       "rejections": "",
       "id": 16
     },
@@ -29,8 +29,8 @@
       "location": "barcelona",
       "category": "classes",
       "date": 1697195580000,
-      "confirmations": "",
-      "rejections": "",
+      "confirmations": 2,
+      "rejections": 1,
       "id": 17
     },
     {
@@ -41,9 +41,33 @@
       "minutes": "60",
       "category": "arts",
       "date": null,
-      "confirmations": "",
+      "confirmations": 1,
       "rejections": "",
       "id": 18
+    },
+    {
+      "name": "Evento1",
+      "organizer": "Jorge",
+      "description": "A walk in the mountain",
+      "location": "Torrelodones",
+      "minutes": "1000",
+      "category": "sports & wellness",
+      "date": 1546502400000,
+      "confirmations": 2,
+      "rejections": 2,
+      "id": 19
+    },
+    {
+      "name": "Año Nuevo",
+      "organizer": "Party test",
+      "description": "Una fiesta de fin de año",
+      "location": "Barcelona",
+      "minutes": "560",
+      "category": "music",
+      "date": 1577833140000,
+      "confirmations": 1,
+      "rejections": 1,
+      "id": 20
     }
   ]
 }

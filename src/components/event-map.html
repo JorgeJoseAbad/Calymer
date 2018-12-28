@@ -20,11 +20,11 @@
       }
     </style>
 
-    <container 
+    <container
       flipped="[[flipped]]"
       class$="[[getClass(flipped)]]">
       <google-map-search
-  
+
         map="[[map]]"
         global-search="true"
         query="[[place]]"
@@ -32,7 +32,7 @@
       >
       </google-map-search>
       <google-map
-        
+
         map="{{ map }}"
         zoom="18"
         fit-to-markers
@@ -63,7 +63,8 @@
         return {
           results: Array,
           map: Object,
-          place: String
+          place: String,
+          flipped: Object,
         };
       }
 
@@ -71,7 +72,7 @@
        * @param {Boolean} flipped
        * @return {String} class name for <event-map>
        */
-      
+
       getClass(flipped) {
         return this.flipped ? "show" : "hide";
       }
