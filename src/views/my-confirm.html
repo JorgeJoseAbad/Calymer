@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
 
 <dom-module id="my-confirm">
@@ -14,9 +15,8 @@
             }
         </style>
 
-     
 
-<paper-button raised on-click="openDialog">[[action]]</paper-button>
+<a raised on-click="openDialog">[[action]]</a>
 
 
 <paper-dialog id="actions">
@@ -56,18 +56,18 @@
             static get properties() {
                 return {
                     /**
-                    * # action is input parameter, acept or decline 
+                    * # action is input parameter, acept or decline
                     * @type {String}
-                    * 
+                    *
                     */
                     action: String,
                     /**
                     * # event is input parameter, name of event.
                     * @type {String}
-                    * 
+                    *
                     */
                     event: String
-                    
+
                 };
             }
 
@@ -93,7 +93,7 @@
 
             /**
             * # response method to send custom event for negative response
-            * @params 
+            * @params
             */
             negative(){
                 console.log("negative");
@@ -112,13 +112,13 @@
             }
 
             /**
-             * Use for one-time configuration of your component after local DOM is initialized. 
+             * Use for one-time configuration of your component after local DOM is initialized.
              */
             ready() {
                 super.ready();
 
                 Polymer.RenderStatus.afterNextRender(this, function() {
-                    
+
                 });
             }
 

@@ -15,6 +15,7 @@
             }
             paper-button{
                 --paper-button-ink-color: var(--paper-pink-a200);
+                
             }
             paper-button.green:hover {
                 background-color: var(--paper-indigo-100);
@@ -82,7 +83,7 @@
             handle-as="json"
             body="[[event]]"
             content-type="application/json"
-            contentType: ""
+
             on-response="putResponse"
             on-error="putError"
         >
@@ -95,7 +96,7 @@
             handle-as="json"
             body="[[event]]"
             content-type="application/json"
-            contentType: ""
+
             on-response="putResponse"
             on-error="putError"
         >
@@ -104,18 +105,14 @@
         <div class="card">
 
             <h1>[[event.name]] page</h1>
-            <div class="display-event"> Name of event: <h2>[[event.name]]</h2></div>
+            <div class="display-event">Name of event: <h2>[[event.name]]</h2></div>
+            <div class="display-event">Date and hour: <b><show-date timestamp="[[ event.date ]]" format="es"></b></show-date></div>
             <div class="display-event">Organized by: <h3>[[event.organizer]]</h3></div>
             <div class="display-event">Category: <h3>[[event.category]]</h3></div>
             <div class="display-event">Place: <h3>[[event.location]]</h3></div>
             <div class="display-event">Description: <h3>[[event.description]]</h3></div>
-            <div class="display-event"><b><show-date timestamp="[[ event.date ]]" format="es"></b></show-date></div>
             <div class="display-event">People who come to the event: <h3>[[event.confirmations]]</h3></div>
             <div class="display-event">People who decline: <h3>[[event.rejections]]</h3></div>
-
-
-            <!-- This to replace to reference to "component 2"-->
-            <!--<component-2></component-2>-->
             <div class="question">Do you want to join the event?</div>
             <paper-button class="green" id="green">
                 <my-confirm
@@ -189,6 +186,17 @@
             }
 
             /**
+          * # This is idChanged to get the id of event and retrieve it
+          * @params {Number}
+          */
+          getEventToShow(id){
+            console.log("this.routeData is here...",this.routeData)
+              this.id=id;
+              this.$.ironajax.generateRequest();
+              console.log(this.id)
+          }
+
+            /**
             * # response method to go acept or decline methods
             * @params {e}
             */
@@ -209,15 +217,7 @@
                 var msg="No!!! I do NOT want to "+e.detail
                 window.alert(msg)
             }
-              /**
-            * # This is idChanged to get the id of event and retrieve it
-            * @params {Number}
-            */
-            getEventToShow(id){
-                this.id=id;
-                this.$.ironajax.generateRequest();
-                console.log(this.id)
-            }
+
 
 
              /**

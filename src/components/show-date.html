@@ -7,12 +7,12 @@
         display: inline;
       }
     </style>
-    
-    <p>When: [[date]]</p>
+
+    <p>[[date]]</p>
   </template>
 
   <script>
-    
+
     class ShowDate extends (class extends Polymer.Element {}) {
       static get is() { return 'show-date'; }
       static get properties() {
@@ -61,14 +61,14 @@
                     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${hh}:${mm}`;
                 },
                 'en': function(date) {
-                  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;                  
+                  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
                 }
               };
             }
           }
         };
       }
-    
+
       /**
       * This method returns a date formated string
       * It shoud recibe a timestamp (miliseconds) an a valid format string (ie: 'es')

@@ -24,12 +24,12 @@
     },
     {
       "name": "event 4",
-      "organizer": "ksdklfaklsfjl",
-      "description": "sldkfjsdkl",
+      "organizer": "Gloria",
+      "description": "A pasear por el parque de la ciudadela",
       "location": "barcelona",
       "category": "classes",
-      "date": 1697195580000,
-      "confirmations": 2,
+      "date": "2019-02-12T14:00:00.000Z",
+      "confirmations": 3,
       "rejections": 1,
       "id": 17
     },
@@ -41,7 +41,7 @@
       "minutes": "60",
       "category": "arts",
       "date": null,
-      "confirmations": 1,
+      "confirmations": 2,
       "rejections": "",
       "id": 18
     },
@@ -65,8 +65,8 @@
       "minutes": "560",
       "category": "music",
       "date": 1577833140000,
-      "confirmations": 1,
-      "rejections": 1,
+      "confirmations": 2,
+      "rejections": 2,
       "id": 20
     }
   ]
