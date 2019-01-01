@@ -8,7 +8,7 @@
       "location": "c/Mayor 1, Madrid",
       "date": 1657449000000,
       "confirmations": 1,
-      "rejections": "",
+      "rejections": 1,
       "id": 13
     },
     {
@@ -19,7 +19,7 @@
       "category": "music",
       "date": 1673521920000,
       "confirmations": 1,
-      "rejections": "",
+      "rejections": 1,
       "id": 16
     },
     {
@@ -30,7 +30,7 @@
       "category": "classes",
       "date": "2019-02-12T14:00:00.000Z",
       "confirmations": 3,
-      "rejections": 1,
+      "rejections": 2,
       "id": 17
     },
     {
@@ -65,9 +65,57 @@
       "minutes": "560",
       "category": "music",
       "date": 1577833140000,
-      "confirmations": 2,
+      "confirmations": 3,
       "rejections": 2,
       "id": 20
+    },
+    {
+      "name": "Año Nuevo",
+      "organizer": "Bagatela Partys",
+      "description": "Ano nuevo en Madrid",
+      "location": "Puerta del Sol Madrid",
+      "minutes": "1",
+      "category": "parties",
+      "date": 1577833140000,
+      "confirmations": "",
+      "rejections": "",
+      "id": 21
+    },
+    {
+      "name": "First Day of Year",
+      "organizer": "The Year Team",
+      "description": "A new year begin with a new party",
+      "location": "Toledo",
+      "minutes": "1400",
+      "category": "parties",
+      "date": 1546297200000,
+      "confirmations": 1,
+      "rejections": "",
+      "id": 22
+    },
+    {
+      "name": "Reyes Magos",
+      "organizer": "La Divina Providencia",
+      "description": "Llegan los Reyes Magos de Oriente",
+      "location": "Belén",
+      "minutes": "60",
+      "category": "arts",
+      "date": null,
+      "confirmations": "",
+      "rejections": "",
+      "id": 23
+    },
+    {
+      "name": "Prueba",
+      "organizer": "fes",
+      "description": "fes",
+      "location": "Alicante",
+      "minutes": "56",
+      "category": "food & drink",
+      "date": null,
+      "confirmations": "",
+      "rejections": "",
+      "id": 24
     }
   ]
 }

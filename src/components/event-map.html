@@ -40,6 +40,7 @@
         longitude="[[ results.0.longitude ]]"
         disable-default-ui
         api-key="AIzaSyCRwd4w5MejrjWSZQ52t0R9xyujp-vtT8o"
+        on-zoom-changed="zoomchanged"
       >
         <template is="dom-repeat" items="{{ results }}" as="marker">
           <google-map-marker
@@ -62,7 +63,13 @@
       static get properties() {
         return {
           results: Array,
-          map: Object,
+          map: {
+            type: Object,
+            value: function(){
+              return null
+            },
+            notify: true
+          },
           place: String,
           flipped: Object,
         };
@@ -76,7 +83,15 @@
       getClass(flipped) {
         return this.flipped ? "show" : "hide";
       }
+
+      zoomchanged(e){
+        console.warn(e.detail);
+      }
+
+
+
     }
+
 
     window.customElements.define(EventMap.is, EventMap);
   </script>

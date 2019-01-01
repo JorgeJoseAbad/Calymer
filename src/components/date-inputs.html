@@ -21,12 +21,12 @@
             .date-fields > * {
                 width: 25%;
             }
-           
+
 
         </style>
 
-    <div class="dates-fields">  
-        <div class="hours">  
+    <div class="dates-fields">
+        <div class="hours">
             <paper-input
                 required
                 auto-validate
@@ -93,14 +93,14 @@
     </template>
 
     <script>
-       
+
         class DateInputs extends Polymer.Element {
-           
+
             static get is() {
                 return 'date-inputs';
             }
 
-            
+
             static get properties() {
                 return {
                     date: {
@@ -110,9 +110,11 @@
                             return {}
                         }
                     },
-                   
+
                 };
-            }  
+            }
+
+            
         }
 
         window.customElements.define(DateInputs.is, DateInputs);

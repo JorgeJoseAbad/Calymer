@@ -32,20 +32,24 @@
     </template>
 
     <script>
-       
+
         class MyCreateEvent extends Polymer.Element {
-            
+
             static get is() {
                 return 'my-create-event';
             }
 
             static get properties() {
                 return {
-                   event: Object
+                   event: {
+                     type: Object,
+                     value: function(){
+                       return {}
+                     }
                     }
                 };
-            
-            
+            }
+
             /** This method sends a post request to API to create a new event
              * @param {Object} event
             */
@@ -53,7 +57,7 @@
                // get all event details from create-event-form component inputs
                this.event = e.detail
                // add an empty 'confirmations' field
-               this.event.confirmations = '' 
+               this.event.confirmations = ''
                // add an empty 'rejections' field
                this.event.rejections = ''
                // generate post request to API
@@ -70,7 +74,7 @@
                     bubbles: true,
                     composed: true,
                     detail: {
-                        
+
                     }
                 }));
            }
