@@ -7,7 +7,7 @@
       "description": "Comple Miko",
       "location": "c/Mayor 1, Madrid",
       "date": 1657449000000,
-      "confirmations": 1,
+      "confirmations": 2,
       "rejections": 1,
       "id": 13
     },
@@ -21,17 +21,6 @@
       "confirmations": 1,
       "rejections": 1,
       "id": 16
-    },
-    {
-      "name": "event 4",
-      "organizer": "Gloria",
-      "description": "A pasear por el parque de la ciudadela",
-      "location": "barcelona",
-      "category": "classes",
-      "date": "2019-02-12T14:00:00.000Z",
-      "confirmations": 3,
-      "rejections": 2,
-      "id": 17
     },
     {
       "name": "evento con duracion 3",
@@ -101,7 +90,7 @@
       "minutes": "60",
       "category": "arts",
       "date": null,
-      "confirmations": "",
+      "confirmations": 1,
       "rejections": "",
       "id": 23
     },
